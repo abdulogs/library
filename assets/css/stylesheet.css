@@ -1,0 +1,165 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  height: 100%;
+  background-color: aliceblue;
+  color: black;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.primary-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+.content .form-card,
+.content .detail-card,
+.content .table-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 25%;
+  margin: auto;
+}
+.content .form-card .card-head,
+.content .detail-card .card-head,
+.content .table-card .card-head {
+  padding: 10px 30px;
+  padding-top: 30px;
+  width: 100%;
+  text-align: center;
+}
+.content .form-card .card-head .heading,
+.content .detail-card .card-head .heading,
+.content .table-card .card-head .heading {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.content .form-card .card-head .sub-heading,
+.content .detail-card .card-head .sub-heading,
+.content .table-card .card-head .sub-heading {
+  font-size: 14px;
+  color: #222;
+  margin: 0;
+  font-weight: normal;
+}
+.content .form-card .card-body,
+.content .detail-card .card-body,
+.content .table-card .card-body {
+  padding: 10px 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.content .form-card .card-foot,
+.content .detail-card .card-foot,
+.content .table-card .card-foot {
+  padding: 10px 30px;
+  padding-bottom: 40px;
+  width: 100%;
+}
+.content .table-card {
+  width: 80% !important;
+}
+
+.form-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+.form-group .form-label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.form-group .form-input {
+  border: 1px solid #ddd;
+  outline: none;
+  margin: 0;
+  padding: 15px 10px;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+}
+
+.btn {
+  border: none;
+  outline: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: dodgerblue;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: rgb(26, 119, 211);
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: rgb(197, 240, 249);
+}
+
+.books {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.books .col {
+  width: 30%;
+}
+.books .col .book-card {
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.books .col .book-card .card-head {
+  padding: 10px;
+}
+.books .col .book-card .card-body {
+  padding: 10px;
+}
+.books .col .book-card .card-foot {
+  padding: 10px;
+}/*# sourceMappingURL=stylesheet.css.map */

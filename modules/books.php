@@ -114,10 +114,10 @@ class books extends database
 
     public static function borrow()
     {
-        if (http::is_method("post")) {
+        if (http::is_method("POST") & http::input("borrow") == 1) {
             $book_id = http::input("id");
-            $return_date = 1;
-            $is_returned = 1;
+            $return_date = http::input("date");
+            $is_returned = 0;
             $is_agreed = 1;
             $student_id = session::get("auth_id");
             $created_at = date('Y-m-d H:i:s');

@@ -18,6 +18,7 @@ class account extends database
             }
         }
     }
+    
     public static function login()
     {
         if (http::is_method("post")) {
