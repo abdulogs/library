@@ -10,20 +10,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books</title>
+    <link rel="stylesheet" href="./assets/libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/stylesheet.css">
 </head>
 
-<body>
-
-    <body class="primary-layout">
-        <?php utils::component("navbar"); ?>
-        <main class="content">
-            <div class="table-card">
-                <div class="card-head">
-                    <h3 class="heading">Books</h3>
+<body class="bg-light h-100 d-flex flex-column">
+    <?php utils::component("navbar"); ?>
+    <main class="container h-100">
+    <nav class="m-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item active">Books</li>
+            </ol>
+        </nav>
+        <div class="row justify-content-center h-100">
+            <div class="card shadow-sm rounded-4 border">
+                <div class="card-header bg-transparent border-0 pt-4 d-flex align-items-center justify-content-between">
+                    <h3 class="fs-2 fw-bold">Books</h3>
+                    <a href="book-create.php" class="btn btn-success fw-bold">Create</a>
                 </div>
                 <div class="card-body">
-                    <table>
+                    <table class="table table-sm">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -51,23 +58,23 @@
                                         <td><?= $item["created_at"]; ?></td>
                                         <td><?= $item["updated_at"]; ?></td>
                                         <td>
-                                            <a href="book-details.php?id=<?= $item["id"]; ?>">Details</a>
-                                            <a href="book-update.php?id=<?= $item["id"]; ?>">Edit</a>
-                                            <a href="books.php?id=<?= $item["id"]; ?>">Delete</a>
+                                            <a href="book-details.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
+                                            <a href="book-update.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-success">Edit</a>
+                                            <a href="books.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-danger">Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="9">No records exists</td>
+                                    <td colspan="9" class="text-center text-danger fw-bold p-2">No records exists</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </main>
-        <?php utils::component("footer"); ?>
-    </body>
+    </main>
+    <?php utils::component("footer"); ?>
+</body>
 
 </html>

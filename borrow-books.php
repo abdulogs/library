@@ -1,15 +1,13 @@
 <?php require_once "./app/bootstrap.php"; ?>
-
-<?php utils::module("users"); ?>
-<?php users::delete(); ?>
-
+<?php utils::module("books"); ?>
+<?php books::delete(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Borrowed books</title>
     <link rel="stylesheet" href="./assets/libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/stylesheet.css">
 </head>
@@ -17,28 +15,27 @@
 <body class="bg-light h-100 d-flex flex-column">
     <?php utils::component("navbar"); ?>
     <main class="container h-100">
-    <nav class="m-0">
+        <nav class="m-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
-                <li class="breadcrumb-item active">Users</li>
+                <li class="breadcrumb-item"><a href="books.php" class=" text-dark text-decoration-none">Books</a></li>
+                <li class="breadcrumb-item active">Borrowed books</li>
             </ol>
         </nav>
         <div class="row justify-content-center h-100">
             <div class="card shadow-sm rounded-4 border">
                 <div class="card-header bg-transparent border-0 pt-4 d-flex align-items-center justify-content-between">
-                    <h3 class="fs-2 fw-bold">Users</h3>
-                    <a href="user-create.php" class="btn btn-success fw-bold">Create</a>
+                    <h3 class="fs-2 fw-bold">Borrowed books</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-sm">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Role</th>
+                                <th>Name</th>
+                                <th>Edition</th>
+                                <th>Author</th>
+                                <th>Copies</th>
                                 <th>Active</th>
                                 <th>Created at</th>
                                 <th>Updated at</th>
@@ -46,23 +43,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $listing = users::listing(); ?>
+                            <?php $listing = books::listing(); ?>
                             <?php if ($listing) : ?>
                                 <?php foreach ($listing as $item) : ?>
                                     <tr>
                                         <td><?= $item["id"]; ?></td>
-                                        <td><?= $item["first_name"]; ?></td>
-                                        <td><?= $item["last_name"]; ?></td>
-                                        <td><?= $item["email"]; ?></td>
-                                        <td><?= $item["phone"]; ?></td>
-                                        <td><?= utils::is_role("badge", $item["is_role"]); ?></td>
+                                        <td><?= $item["name"]; ?></td>
+                                        <td><?= $item["edition"]; ?></td>
+                                        <td><?= $item["author"]; ?></td>
+                                        <td><?= $item["copies"]; ?></td>
                                         <td><?= utils::is_active("badge", $item["is_active"]); ?></td>
                                         <td><?= $item["created_at"]; ?></td>
                                         <td><?= $item["updated_at"]; ?></td>
                                         <td>
-                                            <a href="user-details.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
-                                            <a href="user-update.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-success">Edit</a>
-                                            <a href="users.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-danger">Delete</a>
+                                            <a href="book-details.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -75,7 +69,6 @@
                     </table>
                 </div>
             </div>
-        </div>
     </main>
     <?php utils::component("footer"); ?>
 </body>

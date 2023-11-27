@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 require_once "database.php";
 require_once "http.php";
 require_once "session.php";

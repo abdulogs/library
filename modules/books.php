@@ -14,10 +14,11 @@ class books extends database
             echo $e->getMessage();
         }
     }
-    public static function single()
+
+    public static function single($id = null)
     {
         try {
-            $id = http::input("id");
+            $id = http::input("id", $id);
 
             $stmt = "SELECT * FROM books WHERE id={$id} ";
             $query = parent::$con->prepare($stmt);
@@ -29,6 +30,7 @@ class books extends database
             echo $e->getMessage();
         }
     }
+
     public static function create()
     {
         if (http::is_method("post")) {
@@ -70,7 +72,7 @@ class books extends database
                 $updated_at = date('Y-m-d H:i:s');
 
                 $stmt = "UPDATE `books` SET `name`='{$name}', `edition`='{$edition}', `author`='{$author}', `description`='{$description}',
-                `copies`='{$copies}', `is_active`='{$is_active}', `updated_at`='{$updated_at}',  WHERE id={$id}";
+                `copies`='{$copies}', `is_active`='{$is_active}', `updated_at`='{$updated_at}'  WHERE `id`={$id}";
                 $query = parent::$con->prepare($stmt);
                 $data = $query->execute();
                 http::redirect("books.php");
@@ -136,7 +138,36 @@ class books extends database
             }
         }
     }
-}
 
+    public static function increase_copy(int $id)
+    {
+        $book = self::single($id);
+        $copies = $book["copies"];
+
+        try {
+            $stmt = "UPDATE `books` SET `copies`='{$copies}' WHERE `id`={$id}";
+            $query = parent::$con->prepare($stmt);
+            $data = $query->execute();
+            return $data;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function decrease_copy(int $id)
+    {
+        $book = self::single($id);
+        $copies = ($book["copies"] == 0) ? 0 : $book["copies"] + 1;
+
+        try {
+            $stmt = "UPDATE `books` SET `copies`='{$copies}' WHERE `id`={$id}";
+            $query = parent::$con->prepare($stmt);
+            $data = $query->execute();
+            return $data;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+}
 
 $books = new books();

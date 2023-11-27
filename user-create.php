@@ -8,71 +8,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user create</title>
+    <title>User create</title>
+    <link rel="stylesheet" href="./assets/libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/stylesheet.css">
 </head>
 
-<body>
+<body class="bg-light h-100 d-flex flex-column">
+    <?php utils::component("navbar"); ?>
 
-    <h1>user create</h1>
-    <a href="users.php">Go back</a>
-    <form method="post">
-        <div class="form-group">
-            <label for="first_name">first_name</label>
-            <input type="text" name="first_name" id="first_name" required>
+    <main class="container h-100">
+        <nav class="m-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a href="users.php" class="text-dark text-decoration-none">Users</a></li>
+                <li class="breadcrumb-item active">Create</li>
+            </ol>
+        </nav>
+        <div class="row justify-content-center h-100">
+            <div class="col-sm-5 py-5">
+                <form method="post" class="card shadow rounded-4 border p-3">
+                    <div class="card-header bg-transparent border-0 pt-4">
+                        <h3 class="fs-2 fw-bold mb-0">Create</h3>
+                        <p class="fs-6 text-muted m-0">Add a user details</p>
+                    </div>
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="first_name" class="fw-bold mb-1">First name</label>
+                                <input type="text" name="first_name" id="first_name" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="last_name" class="fw-bold mb-1">Last name</label>
+                                <input type="text" name="last_name" id="last_name" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="email" class="fw-bold mb-1">Email</label>
+                                <input type="text" name="email" id="email" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="phone" class="fw-bold mb-1">Phone</label>
+                                <input type="text" name="phone" id="phone" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="password" class="fw-bold mb-1">Password</label>
+                                <input type="text" name="password" id="password" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="country" class="fw-bold mb-1">Country</label>
+                                <input type="text" name="country" id="country" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="state" class="fw-bold mb-1">State</label>
+                                <input type="text" name="state" id="state" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="city" class="fw-bold mb-1">City</label>
+                                <input type="text" name="city" id="city" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="address" class="fw-bold mb-1">Address</label>
+                                <input type="text" name="address" id="address" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="postal_code" class="fw-bold mb-1">Postal code</label>
+                                <input type="text" name="postal_code" id="postal_code" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="is_active" class="fw-bold mb-1">Is active</label>
+                                <select name="is_active" id="is_active" class="form-control focus-ring focus-ring-success" required>
+                                    <option value="">Select</option>
+                                    <?= utils::is_active("select"); ?>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3 col-sm-6">
+                                <label for="is_role" class="fw-bold mb-1">Is role</label>
+                                <select name="is_role" id="is_role" class="form-control form-select focus-ring focus-ring-success" required>
+                                    <option value="">Select</option>
+                                    <?= utils::is_role("select"); ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent text-center border-0 pb-4">
+                        <button class="btn btn-success w-100 fw-bold" type="submit">Create</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="last_name">last_name</label>
-            <input type="text" name="last_name" id="last_name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">email</label>
-            <input type="text" name="email" id="email" required>
-        </div>
-        <div class="form-group">
-            <label for="phone">phone</label>
-            <input type="text" name="phone" id="phone" required>
-        </div>
-        <div class="form-group">
-            <label for="password">password</label>
-            <input type="text" name="password" id="password" required>
-        </div>
-        <div class="form-group">
-            <label for="country">country</label>
-            <input type="text" name="country" id="country" required>
-        </div>
-        <div class="form-group">
-            <label for="state">state</label>
-            <input type="text" name="state" id="state" required>
-        </div>
-        <div class="form-group">
-            <label for="city">city</label>
-            <input type="text" name="city" id="city" required>
-        </div>
-        <div class="form-group">
-            <label for="address">address</label>
-            <input type="text" name="address" id="address" required>
-        </div>
-        <div class="form-group">
-            <label for="postal_code">postal_code</label>
-            <input type="text" name="postal_code" id="postal_code" required>
-        </div>
-        <div class="form-group">
-            <label for="is_active">Is active</label>
-            <select name="is_active" id="is_active" required>
-                <option value="">Select</option>
-                <?= utils::is_active("select"); ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="is_role">Is active</label>
-            <select name="is_role" id="is_role" required>
-                <option value="">Select</option>
-                <?= utils::is_role("select"); ?>
-            </select>
-        </div>
-        <button type="submit">Create</button>
-    </form>
+    </main>
+    <?php utils::component("footer"); ?>
 </body>
 
 </html>
