@@ -7,24 +7,32 @@
         <?php if (auth::is_authenticated()) : ?>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold px-3 active" aria-current="page" href="home.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold px-3" href="library.php">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold px-3" href="books.php">Books</a>
-                    </li>
+
+                    <?php if (auth::is_admin() | auth::is_faculty()) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold px-3 active" aria-current="page" href="home.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold px-3" href="books.php">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold px-3" href="users.php">Users</a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php if (auth::is_student()) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold px-3" href="library.php">Library</a>
+                        </li>
+                    <?php endif; ?>
                     <li class="nav-item">
                         <a class="nav-link fw-bold px-3" href="borrow-books.php">Borrowed books</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold px-3" href="fine-students.php">Fined students</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link fw-bold px-3" href="users.php">Users</a>
-                    </li>
+                    <?php if (auth::is_admin() | auth::is_faculty()) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold px-3" href="fine-students.php">Fined students</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

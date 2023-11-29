@@ -57,8 +57,13 @@
                                         <td><?= $item["created_at"]; ?></td>
                                         <td><?= $item["updated_at"]; ?></td>
                                         <td>
-                                            <a href="book-details.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
-                                        </td>
+                                                <?php if (auth::is_admin() | auth::is_faculty()) : ?>
+                                                <a href="book-details.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
+                                                <?php else : ?>
+                                                <a href="borrow-book.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
+                                                <?php endif; ?>
+                                            </td>
+
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else : ?>
