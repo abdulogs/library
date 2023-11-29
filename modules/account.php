@@ -35,9 +35,10 @@ class account extends database
                 if ($data) {
                     session::set("auth_id", $data["id"]);
                     session::set("is_role", $data["is_role"]);
+                    msg::alert("Login successfully");
                     http::redirect("home.php");
                 } else {
-                    utils::alert("Invalid credentials");
+                    msg::alert("Invalid credentials");
                 }
                 return $data;
             } catch (PDOException $e) {
@@ -60,13 +61,14 @@ class account extends database
 
             try {
                 if (self::email_exists()) {
-                    utils::alert("This email already exists");
+                    msg::alert("This email already exists");
                 } else {
                     $stmt = "INSERT INTO `users` (`first_name`,`last_name`,`email`,`phone`,`password`,`is_role`,`is_active`,`created_at`, `updated_at`) 
                 VALUES ('{$first_name}','{$last_name}','{$email}','{$phone}','{$password}','{$is_role}','{$is_active}','{$created_at}','{$updated_at}')";
                     $query = parent::$con->prepare($stmt);
                     $data = $query->execute();
-                    http::redirect("users.php");
+                    msg::alert("Account created successfully");
+                    http::redirect("login.php");
                 }
                 return $data;
             } catch (PDOException $e) {

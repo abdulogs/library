@@ -1,5 +1,5 @@
 <?php require_once "./app/bootstrap.php"; ?>
-<?php middleware::logout("id", "home.php"); ?>
+<?php middleware::login("auth_id", "home.php"); ?>
 <?php utils::module("account"); ?>
 <?php account::login(); ?>
 
