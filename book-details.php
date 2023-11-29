@@ -1,4 +1,5 @@
 <?php require_once "./app/bootstrap.php"; ?>
+<?php middleware::logout("auth_id", "login.php"); ?>
 <?php utils::module("books"); ?>
 <?php $book = books::single(); ?>
 
@@ -16,7 +17,7 @@
 <body class="bg-light h-100 d-flex flex-column">
     <?php utils::component("navbar"); ?>
     <main class="container h-100 ">
-    <nav class="m-0">
+        <nav class="m-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
                 <li class="breadcrumb-item"><a href="books.php" class="text-dark text-decoration-none">Books</a></li>
@@ -31,43 +32,43 @@
                 <div class="card-body">
                     <table class="table table-sm">
                         <tr>
-                            <td>ID</td>
+                            <td class="fw-bold">ID</td>
                             <td><?= $book["id"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Name</td>
+                            <td class="fw-bold">Name</td>
                             <td><?= $book["name"]; ?></td>
                         </tr>
                         <tr>
-                            <td>edition</td>
+                            <td class="fw-bold">Edition</td>
                             <td><?= $book["edition"]; ?></td>
                         </tr>
                         <tr>
-                            <td>author</td>
+                            <td class="fw-bold">Author</td>
                             <td><?= $book["author"]; ?></td>
                         </tr>
                         <tr>
-                            <td>description</td>
+                            <td class="fw-bold">Description</td>
                             <td><?= $book["description"]; ?></td>
                         </tr>
                         <tr>
-                            <td>copies</td>
+                            <td class="fw-bold">Copies</td>
                             <td><?= $book["copies"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Active</td>
+                            <td class="fw-bold">Active</td>
                             <td><?= utils::is_active("badge", $book["is_active"]); ?></td>
                         </tr>
                         <tr>
-                            <td>Created by</td>
+                            <td class="fw-bold">Created by</td>
                             <td><?= $book["created_by"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Created at</td>
+                            <td class="fw-bold">Created at</td>
                             <td><?= $book["created_at"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Updated at</td>
+                            <td class="fw-bold">Updated at</td>
                             <td><?= $book["updated_at"]; ?></td>
                         </tr>
                     </table>

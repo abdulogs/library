@@ -47,8 +47,27 @@ class utils
         }
     }
 
-    public static function alert($msg)
+    public static function is_admin()
     {
-        echo "<script>alert('{$msg}')</script>";
+        if ($_SESSION["is_role"] == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function is_faculty()
+    {
+        if ($_SESSION["is_role"] == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function is_student()
+    {
+        if ($_SESSION["is_role"] == 2) {
+            return true;
+        }
+        return false;
     }
 }

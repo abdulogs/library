@@ -1,6 +1,8 @@
 <?php require_once "./app/bootstrap.php"; ?>
+<?php middleware::logout("auth_id", "login.php"); ?>
 <?php utils::module("books"); ?>
 <?php books::borrow(); ?>
+<?php books::return(); ?>
 <?php $item = books::single(); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,11 +18,11 @@
 <body class="bg-light h-100 d-flex flex-column">
     <?php utils::component("navbar"); ?>
     <main class="container h-100">
-        <div class="row py-5">
+        <div class="row py-5 g-5">
             <div class="col-sm-6">
                 <div class="card shadow rounded-4 border p-3">
                     <div class="card-body">
-                        <img src="" alt="" class="book-image">
+                        <img src="uploads/<?= $item["image"]; ?>" alt="" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -43,14 +45,30 @@
                     <b>Copies</b>
                     <span><?= $item["copies"]; ?></span>
                 </p>
-                <form method="POST" class="py-3">
-                    <input type="hidden" name="id" id="id" value="<?= $item["id"]; ?>">
-                    <div class="form-group mb-3">
-                        <label for="date" class="fw-bold">Return date</label>
-                        <input type="date" name="date" id="date" value="<?= http::input("date"); ?>" class="form-control focus-ring focus-ring-success" required>
-                    </div>
-                    <button type="submit" value="1" name="borrow" class="btn btn-success fw-bold">Borrow</button>
-                </form>
+                <?php if ($item["copies"] != 0) : ?>
+                    <?php if (!books::is_borrow()) : ?>
+                        <form method="POST" class="py-3">
+                            <input type="hidden" name="id" id="id" value="<?= $item["id"]; ?>">
+                            <div class="form-group mb-3">
+                                <label for="date" class="fw-bold">Return date</label>
+                                <input type="date" name="date" id="date" value="<?= http::input("date"); ?>" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <button type="submit" value="1" name="borrow" class="btn btn-success fw-bold">Borrow</button>
+                        </form>
+                    <?php else : ?>
+                        <form method="POST" class="py-3">
+                            <input type="hidden" name="id" id="id" value="<?= $item["id"]; ?>">
+                            <div class="form-group mb-3">
+                                <label for="date" class="fw-bold">Returning date</label>
+                                <input type="date" readonly name="date" id="date" value="<?= date("Y-m-d"); ?>" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <button type="submit" value="1" name="return" class="btn btn-success fw-bold">Return</button>
+                        </form>
+                    <?php endif; ?>
+                <?php else : ?>
+                    <h3 class="text-danger text-center fw-bold fs-5">0 Copies left: Not available right now</h3>
+                <?php endif; ?>
+
             </div>
         </div>
         </div>

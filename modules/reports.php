@@ -1,90 +1,71 @@
 <?php
-class students extends database
+class reports extends database
 {
-
-    private $id;
-    private $name;
-    private $email;
-    private $phone;
-
-    public function __construct()
-    {
-        $this->id = http::input("id");
-        $this->name = http::input("name");
-        $this->email = http::input("email");
-        $this->phone = http::input("phone");
-    }
-
-    public function listing()
+    public static function books()
     {
         try {
-            $stmt = "SELECT * FROM students";
+            $stmt = "SELECT COUNT(*) AS `books` FROM `books` WHERE NOT `copies` = 0";
             $query = parent::$con->prepare($stmt);
             $query->execute();
-            $result = $query->setFetchMode(PDO::FETCH_ASSOC);
-            $data = $query->fetchAll();
-            return $data;
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+            return $data["books"];
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
     }
 
-    public function create()
-    {
-        if (http::is_method("post")) {
-            try {
-                $stmt = "INSERT INTO `students`(`name`, `email`, `phone`) VALUES ('{$this->name}','{$this->email}','{$this->phone}')";
-                $query = parent::$con->prepare($stmt);
-                $data = $query->execute();
-                http::redirect("students.php");
-
-                return $data;
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
-    }
-
-    public function update()
-    {
-        if (http::is_method("post")) {
-            try {
-                $stmt = "UPDATE `students` SET `name`='{$this->name}',`email`='{$this->email}',`phone`='{$this->phone}' WHERE id={$this->id}";
-                $query = parent::$con->prepare($stmt);
-                $data = $query->execute();
-                http::redirect("students.php");
-
-                return $data;
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
-    }
-
-    public function delete()
-    {
-        if (http::is_get("id")) {
-            try {
-                $stmt = "DELETE FROM students WHERE id={$this->id}";
-                $query = parent::$con->prepare($stmt);
-                $query->execute();
-
-                http::redirect("students.php");
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
-        }
-    }
-
-    public function single()
+    public static function borrow_books()
     {
         try {
-            $stmt = "SELECT * FROM students WHERE id={$this->id}";
+            $stmt = "SELECT COUNT(*) AS `books` FROM `borrow_books` WHERE `is_returned` = 0";
             $query = parent::$con->prepare($stmt);
             $query->execute();
-            $result = $query->setFetchMode(PDO::FETCH_ASSOC);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
             $data = $query->fetch();
-            return $data;
+            return $data["books"];
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function admins()
+    {
+        try {
+            $stmt = "SELECT COUNT(*) AS `users` FROM `users` WHERE `is_role` = 0";
+            $query = parent::$con->prepare($stmt);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+            return $data["users"];
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function faculty()
+    {
+        try {
+            $stmt = "SELECT COUNT(*) AS `users` FROM `users` WHERE `is_role` = 1";
+            $query = parent::$con->prepare($stmt);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+            return $data["users"];
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function students()
+    {
+        try {
+            $stmt = "SELECT COUNT(*) AS `users` FROM `users` WHERE `is_role` = 2";
+            $query = parent::$con->prepare($stmt);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+            return $data["users"];
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -92,4 +73,4 @@ class students extends database
 }
 
 
-$students = new students();
+$reports = new reports();

@@ -1,4 +1,5 @@
 <?php require_once "./app/bootstrap.php"; ?>
+<?php middleware::logout("auth_id", "login.php"); ?>
 <?php utils::module("users"); ?>
 <?php $user = users::single(); ?>
 
@@ -16,7 +17,7 @@
 <body class="bg-light h-100 d-flex flex-column">
     <?php utils::component("navbar"); ?>
     <main class="container h-100 ">
-    <nav class="m-0">
+        <nav class="m-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
                 <li class="breadcrumb-item"><a href="users.php" class="text-dark text-decoration-none">Users</a></li>
@@ -31,59 +32,59 @@
                 <div class="card-body">
                     <table class="table table-sm">
                         <tr>
-                            <td>ID</td>
+                            <td class="fw-bold">ID</td>
                             <td><?= $user["id"]; ?></td>
                         </tr>
                         <tr>
-                            <td>First name</td>
+                            <td class="fw-bold">First name</td>
                             <td><?= $user["first_name"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Last name</td>
+                            <td class="fw-bold">Last name</td>
                             <td><?= $user["last_name"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Email</td>
+                            <td class="fw-bold">Email</td>
                             <td><?= $user["email"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Phone</td>
+                            <td class="fw-bold">Phone</td>
                             <td><?= $user["phone"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Country</td>
+                            <td class="fw-bold">Country</td>
                             <td><?= $user["country"]; ?></td>
                         </tr>
                         <tr>
-                            <td>State</td>
+                            <td class="fw-bold">State</td>
                             <td><?= $user["state"]; ?></td>
                         </tr>
                         <tr>
-                            <td>City</td>
+                            <td class="fw-bold">City</td>
                             <td><?= $user["city"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Address</td>
+                            <td class="fw-bold">Address</td>
                             <td><?= $user["address"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Postal code</td>
+                            <td class="fw-bold">Postal code</td>
                             <td><?= $user["postal_code"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Is Role</td>
+                            <td class="fw-bold">Is Role</td>
                             <td><?= utils::is_role("badge", $user["is_role"]); ?></td>
                         </tr>
                         <tr>
-                            <td>Active</td>
+                            <td class="fw-bold">Active</td>
                             <td><?= utils::is_active("badge", $user["is_active"]); ?></td>
                         </tr>
                         <tr>
-                            <td>Created at</td>
+                            <td class="fw-bold">Created at</td>
                             <td><?= $user["created_at"]; ?></td>
                         </tr>
                         <tr>
-                            <td>Updated at</td>
+                            <td class="fw-bold">Updated at</td>
                             <td><?= $user["updated_at"]; ?></td>
                         </tr>
                     </table>

@@ -1,5 +1,5 @@
 <?php require_once "./app/bootstrap.php"; ?>
-
+<?php middleware::logout("auth_id", "login.php"); ?>
 <?php utils::module("users"); ?>
 
 <?php users::update(); ?>

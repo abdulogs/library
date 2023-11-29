@@ -1,7 +1,7 @@
 <?php require_once "./app/bootstrap.php"; ?>
+<?php middleware::logout("auth_id", "login.php"); ?>
 <?php utils::module("books"); ?>
 <?php books::create(); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,8 +25,8 @@
             </ol>
         </nav>
         <div class="row justify-content-center h-100">
-            <div class="col-sm-4 m-auto">
-                <form method="post" class="card shadow rounded-4 border p-3">
+            <div class="col-sm-4 py-5">
+                <form method="post" class="card shadow rounded-4 border p-3" enctype="multipart/form-data">
                     <div class="card-header bg-transparent border-0 pt-4">
                         <h3 class="fs-2 fw-bold mb-0">Create</h3>
                         <p class="fs-6 text-muted m-0">Add a book details</p>
@@ -48,6 +48,10 @@
                             <div class="form-group mb-3 col-sm-6">
                                 <label for="author" class="fw-bold mb-1">Author</label>
                                 <input type="text" name="author" id="author" class="form-control focus-ring focus-ring-success" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-12">
+                                <label for="file" class="fw-bold mb-1">Image</label>
+                                <input type="file" name="image" id="image" class="form-control focus-ring focus-ring-success" required>
                             </div>
                             <div class="form-group mb-3 col-sm-6">
                                 <label for="copies" class="fw-bold mb-1">Copies</label>

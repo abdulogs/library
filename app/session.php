@@ -1,27 +1,31 @@
 <?php
 
-class session {
+class session
+{
 
-	public static function set($key, $value){
+	public static function set($key, $value)
+	{
 		$_SESSION[$key] = $value;
 	}
 
-	public static function get($key){
-		if(isset($_SESSION[$key])){
+	public static function get($key)
+	{
+		if (isset($_SESSION[$key])) {
 			return $_SESSION[$key];
 		} else {
 			return false;
 		}
 	}
 
-	public static function role($key, $val){
-		if(isset($_SESSION[$key])){
-			if($_SESSION[$key] == $val){
+	public static function role($key, $val)
+	{
+		if (isset($_SESSION[$key])) {
+			if ($_SESSION[$key] == $val) {
 				return true;
-			} else{
+			} else {
 				return false;
 			}
-		} else{
+		} else {
 			return false;
 		}
 	}

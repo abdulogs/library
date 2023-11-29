@@ -1,8 +1,7 @@
 <?php require_once "./app/bootstrap.php"; ?>
-
+<?php middleware::logout("auth_id", "login.php"); ?>
 <?php utils::module("books"); ?>
 <?php books::delete(); ?>
-
 <!DOCTYPE html>
 <html lang="en">
 

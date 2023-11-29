@@ -16,38 +16,38 @@
 <body class="bg-light h-100 d-flex flex-column">
     <?php utils::component("navbar"); ?>
     <main class="container h-100">
-    <nav class="m-0">
+        <nav class="m-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
                 <li class="breadcrumb-item active">Users</li>
             </ol>
         </nav>
         <div class="row h-100">
-        <?php $listing = books::listing(); ?>
-        <?php if ($listing) : ?>
-            <?php foreach ($listing as $item) : ?>
-                <div class="col-sm-3">
-                    <div class="card shadow rounded-4 border p-3">
-                        <div  class="card-header text-center bg-transparent border-0 pt-4">
-                            <a href="" class="card-image">
-                                <img src="./" alt="" class="image">
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="heading"><?= $item["name"]; ?></h3>
-                            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi sit numquam porro pariatur dolor tempora.</p>
-                        </div>
-                        <div class="card-footer bg-transparent border-0 pb-4">
-                            <a href="borrow-book.php?id=<?= $item["id"]; ?>" class="btn btn-success fw-bold">Book details</a>
+            <?php $listing = books::listing(); ?>
+            <?php if ($listing) : ?>
+                <?php foreach ($listing as $item) : ?>
+                    <div class="col-sm-3">
+                        <div class="card shadow rounded-4 border p-2">
+                            <div class="card-header text-center bg-transparent border-0 pt-4">
+                                <a href="" class="d-block ratio-4x3">
+                                    <img src="uploads/<?= $item["image"]; ?>" alt="" class="img-fluid ratio-4x3">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="heading"><?= $item["name"]; ?></h3>
+                                <p class="description"><b>Author:</b> <?= $item["author"]; ?></p>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-4">
+                                <a href="borrow-book.php?id=<?= $item["id"]; ?>" class="btn btn-success fw-bold">Book details</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        <?php else : ?>
-            <p>No records exists</p>
-        <?php endif; ?>
-    </div>
-    <?php utils::component("footer"); ?>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>No records exists</p>
+            <?php endif; ?>
+        </div>
+        <?php utils::component("footer"); ?>
 </body>
 
 </html>

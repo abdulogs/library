@@ -1,4 +1,5 @@
 <?php require_once "./app/bootstrap.php"; ?>
+<?php middleware::logout("auth_id", "login.php"); ?>
 <?php utils::module("books"); ?>
 <?php $book = books::single(); ?>
 <?php books::update(); ?>
@@ -16,7 +17,7 @@
 <body class="bg-light h-100 d-flex flex-column">
     <?php utils::component("navbar"); ?>
     <main class="container h-100">
-    <nav class="m-0">
+        <nav class="m-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
                 <li class="breadcrumb-item"><a href="books.php" class="text-dark text-decoration-none">Books</a></li>
@@ -24,8 +25,8 @@
             </ol>
         </nav>
         <div class="row justify-content-center h-100">
-            <div class="col-sm-4 m-auto">
-                <form method="post" class="card shadow rounded-4 border p-3">
+            <div class="col-sm-4 py-5">
+                <form method="post" class="card shadow rounded-4 border p-3" enctype="multipart/form-data">
                     <div class="card-header bg-transparent border-0 pt-4">
                         <h3 class="fs-2 fw-bold mb-0">Update</h3>
                         <p class="fs-6 text-muted m-0">Update book details</p>
@@ -48,6 +49,11 @@
                             <div class="form-group mb-3 col-sm-6">
                                 <label for="author" class="fw-bold mb-1">Author</label>
                                 <input type="text" name="author" id="author" class="form-control focus-ring focus-ring-success" value="<?= $book['author'] ?>" required>
+                            </div>
+                            <div class="form-group mb-3 col-sm-12">
+                                <label for="file" class="fw-bold mb-1">Image</label>
+                                <input type="file" name="image" id="image" class="form-control focus-ring focus-ring-success">
+                                <input type="text" name="oimage" id="oimage" value="<?= $book['image'] ?>">
                             </div>
                             <div class="form-group mb-3 col-sm-6">
                                 <label for="copies" class="fw-bold mb-1">Copies</label>
