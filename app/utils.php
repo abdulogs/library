@@ -9,6 +9,11 @@ class utils
             echo ($value) ? "<option value='1' selected>Active</option><option value='0'>Inactive</option>" : "<option value='1'>Active</option><option value='0' selected>Inactive</option>";
         }
     }
+    
+    public static function is_status($value = null)
+    {
+        echo ($value) ? "Yes" : "No";
+    }
 
     public static function is_role($type = "badge", $value = null)
     {
@@ -46,6 +51,4 @@ class utils
             die("component file not exists " . $name);
         }
     }
-
-
 }

@@ -19,7 +19,7 @@
         <nav class="m-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
-                <li class="breadcrumb-item active">Users</li>
+                <li class="breadcrumb-item active">Library</li>
             </ol>
         </nav>
         <div class="row h-100">
@@ -29,8 +29,8 @@
                     <div class="col-sm-3">
                         <div class="card shadow rounded-4 border p-2">
                             <div class="card-header text-center bg-transparent border-0 pt-4">
-                                <a href="" class="d-block ratio-4x3">
-                                    <img src="uploads/<?= $item["image"]; ?>" alt="" class="img-fluid ratio-4x3">
+                                <a href="borrow-book.php?id=<?= $item["id"]; ?>" class="d-block" style="height:250px;">
+                                    <img src="uploads/<?= $item["image"]; ?>" style="height:250px;"class="img-fluid">
                                 </a>
                             </div>
                             <div class="card-body">

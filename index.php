@@ -14,7 +14,16 @@
 <body class="bg-light h-100 d-flex flex-column">
     <?php utils::component("navbar"); ?>
     <main class="container h-100">
-        home
+        <div class="row g-5 align-items-center">
+            <div class="col-sm-6">
+                <h1 class="fs-1 fw-bold text-dark">Welcome to e-library</h1>
+                <p class="text-muted fs-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo assumenda earum nobis vitae libero ratione beatae repellat labore minima ut! Inventore cum debitis maxime hic nam numquam harum alias officiis.</p>
+                <a href="signup.php" class="btn btn-lg btn-success">Get started</a>
+            </div>
+            <div class="col-sm-6 text-right">
+                <img src="./assets/images/bg.webp" class="img-fluid" alt="">
+            </div>
+        </div>
     </main>
     <?php utils::component("footer"); ?>
 </body>

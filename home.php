@@ -78,6 +78,17 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-3">
+                <div class="card shadow rounded-4 border p-3 mb-4">
+                    <div class="card-body">
+                        <p class="fs-2 m-0 text-success"><?= reports::fined_students(); ?></p>
+                        <h3 class="fs-4 fw-bold">Fined students</h3>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 pb-4">
+                        <a href="fined-students.php" class="btn btn-success fw-bold">Go to details</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <?php utils::component("footer"); ?>

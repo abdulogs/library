@@ -1,5 +1,6 @@
 <?php require_once "./app/bootstrap.php"; ?>
 <?php middleware::logout("auth_id", "login.php"); ?>
+<?php middleware::is_student("library.php"); ?>
 <?php utils::module("books"); ?>
 <?php books::delete(); ?>
 <!DOCTYPE html>
@@ -54,8 +55,8 @@
                                         <td><?= $item["author"]; ?></td>
                                         <td><?= $item["copies"]; ?></td>
                                         <td><?= utils::is_active("badge", $item["is_active"]); ?></td>
-                                        <td><?= $item["created_at"]; ?></td>
-                                        <td><?= $item["updated_at"]; ?></td>
+                                        <td><?= date("F d, Y h:i A", strtotime($item["created_at"])); ?></td>
+                                        <td><?= date("F d, Y h:i A", strtotime($item["updated_at"])); ?></td>
                                         <td>
                                             <a href="book-details.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
                                             <a href="book-update.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-success">Edit</a>

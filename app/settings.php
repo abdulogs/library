@@ -3,5 +3,5 @@
 $database->setHostname("localhost");
 $database->setUsername("root");
 $database->setPassword("");
-$database->setDatabase("books");
+$database->setDatabase("elibrary");
 $database->connect();

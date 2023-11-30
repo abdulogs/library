@@ -3,6 +3,7 @@
 <?php utils::module("books"); ?>
 <?php books::borrow(); ?>
 <?php books::return(); ?>
+<?php $borrow = books::is_borrow(); ?>
 <?php $item = books::single(); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title><?= $item["name"]; ?> - Book details</title>
     <link rel="stylesheet" href="./assets/libs/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/stylesheet.css">
 </head>
@@ -45,21 +46,32 @@
                     <b>Copies</b>
                     <span><?= $item["copies"]; ?></span>
                 </p>
+
+                <?php if ($borrow) : ?>
+                    <?php if (date("Y-m-d") > date($borrow["returning_date"])) : ?>
+                        <p class="my-3 text-center text-danger fw-bold">You have to pay 500RS fine because of late returning the book</p>
+                    <?php elseif (date("Y-m-d") == date($borrow["returning_date"])) : ?>
+                        <p class="my-3 text-center text-danger fw-bold">Today is the last day of book return</p>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+
                 <?php if ($item["copies"] != 0) : ?>
-                    <?php if (!books::is_borrow()) : ?>
+                    <?php if (!$borrow) : ?>
                         <form method="POST" class="py-3">
                             <input type="hidden" name="id" id="id" value="<?= $item["id"]; ?>">
                             <div class="form-group mb-3">
-                                <label for="date" class="fw-bold">Return date</label>
+                                <label for="date" class="fw-bold">Returning date</label>
                                 <input type="date" name="date" id="date" value="<?= http::input("date"); ?>" class="form-control focus-ring focus-ring-success" required>
                             </div>
                             <button type="submit" value="1" name="borrow" class="btn btn-success fw-bold">Borrow</button>
                         </form>
                     <?php else : ?>
+
                         <form method="POST" class="py-3">
                             <input type="hidden" name="id" id="id" value="<?= $item["id"]; ?>">
                             <div class="form-group mb-3">
-                                <label for="date" class="fw-bold">Returning date</label>
+                                <label for="date" class="fw-bold">Return date</label>
                                 <input type="date" readonly name="date" id="date" value="<?= date("Y-m-d"); ?>" class="form-control focus-ring focus-ring-success" required>
                             </div>
                             <button type="submit" value="1" name="return" class="btn btn-success fw-bold">Return</button>

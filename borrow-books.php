@@ -34,33 +34,33 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Edition</th>
-                                <th>Author</th>
+                                <th>Student</th>
                                 <th>Copies</th>
-                                <th>Active</th>
-                                <th>Created at</th>
+                                <th>Returning date</th>
+                                <th>Returned</th>
+                                <th>Borrow date</th>
                                 <th>Updated at</th>
                                 <th>Controls</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $listing = books::listing(); ?>
+                            <?php $listing = books::borrow_books(); ?>
                             <?php if ($listing) : ?>
                                 <?php foreach ($listing as $item) : ?>
                                     <tr>
                                         <td><?= $item["id"]; ?></td>
                                         <td><?= $item["name"]; ?></td>
-                                        <td><?= $item["edition"]; ?></td>
-                                        <td><?= $item["author"]; ?></td>
+                                        <td><?= $item["first_name"]." ".$item["last_name"]; ?></td>
                                         <td><?= $item["copies"]; ?></td>
-                                        <td><?= utils::is_active("badge", $item["is_active"]); ?></td>
-                                        <td><?= $item["created_at"]; ?></td>
-                                        <td><?= $item["updated_at"]; ?></td>
+                                        <td><?= date("F d, Y", strtotime($item["returning_date"])); ?></td>
+                                        <td><?= utils::is_status($item["is_returned"]); ?></td>
+                                        <td><?= date("F d, Y h:i A", strtotime($item["created_at"])); ?></td>
+                                        <td><?= date("F d, Y h:i A", strtotime($item["updated_at"])); ?></td>
                                         <td>
                                                 <?php if (auth::is_admin() | auth::is_faculty()) : ?>
-                                                <a href="book-details.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
+                                                <a href="book-details.php?id=<?= $item["book_id"]; ?>" class="btn btn-sm btn-light">Details</a>
                                                 <?php else : ?>
-                                                <a href="borrow-book.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
+                                                <a href="borrow-book.php?id=<?= $item["book_id"]; ?>" class="btn btn-sm btn-light">Details</a>
                                                 <?php endif; ?>
                                             </td>
 
@@ -68,7 +68,7 @@
                                 <?php endforeach; ?>
                             <?php else : ?>
                                 <tr>
-                                    <td colspan="9" class="text-center text-danger fw-bold p-2">No records exists</td>
+                                    <td colspan="10" class="text-center text-danger fw-bold p-2">No records exists</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>

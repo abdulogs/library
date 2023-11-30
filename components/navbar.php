@@ -30,22 +30,27 @@
                     </li>
                     <?php if (auth::is_admin() | auth::is_faculty()) : ?>
                         <li class="nav-item">
-                            <a class="nav-link fw-bold px-3" href="fine-students.php">Fined students</a>
+                            <a class="nav-link fw-bold px-3" href="fined-students.php">Fined students</a>
                         </li>
                     <?php endif; ?>
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <?php if (auth::is_admin() | auth::is_faculty()) : ?>
+                    <form class="d-flex" action="books.php" role="search">
+                    <?php else : ?>
+                    <form class="d-flex" action="library.php" role="search">
+                    <?php endif; ?>
+
+                    <input class="form-control me-2" type="search" placeholder="Search" name="search" value="<?= http::input('search'); ?>" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                <div class="dropdown ms-3">
-                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
-                        Abdul
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                    </ul>
-                </div>
+                    </form>
+                    <div class="dropdown ms-3">
+                        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                            <?= $GLOBALS["user"]["first_name"]; ?> <?= $GLOBALS["user"]["last_name"]; ?>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                        </ul>
+                    </div>
             </div>
         <?php else : ?>
             <div>

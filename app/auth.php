@@ -1,6 +1,6 @@
 <?php
 
-class auth
+class auth extends database
 {
 
     public static function is_authenticated()
@@ -35,4 +35,24 @@ class auth
         }
         return false;
     }
+
+
+    public static function user()
+    {
+
+        try {
+            if (isset($_SESSION['is_role'])) {
+                $stmt = "SELECT * FROM `users` WHERE `is_role` = {$_SESSION['is_role']}";
+                $query = parent::$con->prepare($stmt);
+                $query->execute();
+                $query->setFetchMode(PDO::FETCH_ASSOC);
+                $data = $query->fetch();
+                return $data;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
+
+$user = auth::user();

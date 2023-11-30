@@ -1,5 +1,6 @@
 <?php require_once "./app/bootstrap.php"; ?>
 <?php middleware::logout("auth_id", "login.php"); ?>
+<?php middleware::is_student("library.php"); ?>
 <?php utils::module("books"); ?>
 <?php $book = books::single(); ?>
 <?php books::update(); ?>
@@ -53,7 +54,7 @@
                             <div class="form-group mb-3 col-sm-12">
                                 <label for="file" class="fw-bold mb-1">Image</label>
                                 <input type="file" name="image" id="image" class="form-control focus-ring focus-ring-success">
-                                <input type="text" name="oimage" id="oimage" value="<?= $book['image'] ?>">
+                                <input type="hidden" name="oimage" id="oimage" value="<?= $book['image'] ?>">
                             </div>
                             <div class="form-group mb-3 col-sm-6">
                                 <label for="copies" class="fw-bold mb-1">Copies</label>

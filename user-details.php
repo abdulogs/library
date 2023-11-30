@@ -1,5 +1,6 @@
 <?php require_once "./app/bootstrap.php"; ?>
 <?php middleware::logout("auth_id", "login.php"); ?>
+<?php middleware::is_student("library.php"); ?>
 <?php utils::module("users"); ?>
 <?php $user = users::single(); ?>
 

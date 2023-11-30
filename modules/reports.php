@@ -70,6 +70,21 @@ class reports extends database
             echo $e->getMessage();
         }
     }
+
+    public static function fined_students()
+    {
+        try {
+            $stmt = "SELECT COUNT(*) AS `students` FROM `borrow_books` AS br INNER JOIN `borrow_books` AS f
+            ON f.`id` = br.`id` WHERE br.`returned_date` != f.`returning_date` ";
+            $query = parent::$con->prepare($stmt);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+            return $data["students"];
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }
 
 

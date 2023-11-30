@@ -4,7 +4,15 @@ class books extends database
     public static function listing()
     {
         try {
-            $stmt = "SELECT * FROM books ORDER BY `id` DESC";
+            $search = http::input("search");
+            if ($search) {
+                $stmt = "SELECT * FROM books WHERE `name` 
+                LIKE '%{$search}%' OR `edition` LIKE '%{$search}%' OR `author` LIKE '%{$search}%' OR `description` LIKE '%{$search}%' 
+                ORDER BY `id` DESC";
+            } else {
+                $stmt = "SELECT * FROM books ORDER BY `id` DESC";
+            }
+
             $query = parent::$con->prepare($stmt);
             $query->execute();
             $query->setFetchMode(PDO::FETCH_ASSOC);
@@ -53,10 +61,21 @@ class books extends database
             }
 
             try {
-                $stmt = "INSERT INTO `books` (`name`, `edition`, `author`, `description`, `copies`, `image`,`is_active`, `created_by`,`created_at`,`updated_at`) 
-                VALUES ('{$name}','{$edition}','{$author}','{$description}','{$copies}','{$file}','{$is_active}','{$created_by}','{$created_at}','{$updated_at}')";
+                $stmt = "INSERT INTO `books` (`name`, `edition`, `author`, `description`, `copies`, `image`, `is_active`, `created_by`, `created_at`, `updated_at`) 
+                VALUES (:name, :edition, :author, :description, :copies, :image, :is_active, :created_by, :created_at, :updated_at)";
                 $query = parent::$con->prepare($stmt);
-                $data = $query->execute();
+                $data = $query->execute([
+                    ":name" => $name,
+                    ":edition" => $edition,
+                    ":author" => $author,
+                    ":description" => $description,
+                    ":copies" => $copies,
+                    ":image" => $file,
+                    ":is_active" => $is_active,
+                    ":created_by" => $created_by,
+                    ":created_at" => $created_at,
+                    ":updated_at" => $updated_at,
+                ]);
                 msg::alert("1 Book created successfully");
                 http::redirect("books.php");
 
@@ -77,7 +96,7 @@ class books extends database
                 $author = http::input("author");
                 $description = http::input("description");
                 $image = http::files("image");
-                $oimage = http::files("oimage");
+                $oimage = http::input("oimage");
                 $copies = http::input("copies");
                 $is_active = http::input("is_active");
                 $updated_at = date('Y-m-d H:i:s');
@@ -85,18 +104,28 @@ class books extends database
                 $folder = "uploads/";
                 $file =  time() . date("d") . date("y") . date("m") . basename($image["name"]);
 
-                if ($image) {
+                if ($image["name"]) {
                     move_uploaded_file($image["tmp_name"], $folder . $file);
                     unlink($folder . $oimage);
                 } else {
                     $file = $oimage;
                 }
 
-                $stmt = "UPDATE `books` SET `name`='{$name}', `edition`='{$edition}', `author`='{$author}', `description`='{$description}',
-                `copies`='{$copies}',`image`='{$file}', `is_active`='{$is_active}', `updated_at`='{$updated_at}'  WHERE `id`={$id}";
+                $stmt = "UPDATE `books` SET `name`=:name, `edition`=:edition, `author`=:author, `description`=:description,
+                `copies`=:copies,`image`=:image, `is_active`=:is_active, `updated_at`=:updated_at  WHERE `id`=:id";
 
                 $query = parent::$con->prepare($stmt);
-                $data = $query->execute();
+                $data = $query->execute([
+                    ":id" => $id,
+                    ":name" => $name,
+                    ":edition" => $edition,
+                    ":author" => $author,
+                    ":description" => $description,
+                    ":copies" => $copies,
+                    ":image" => $file,
+                    ":is_active" => $is_active,
+                    ":updated_at" => $updated_at,
+                ]);
                 http::redirect("books.php");
 
                 return $data;
@@ -110,10 +139,15 @@ class books extends database
     {
         if (http::is_get("id")) {
             try {
+
                 $id = http::input("id");
                 $stmt = "DELETE FROM books WHERE id={$id}";
                 $query = parent::$con->prepare($stmt);
                 $query->execute();
+                $book = self::single($id);
+                if (file_exists("uploads/" . $book["image"])) {
+                    unlink("uploads/" . $book["image"]);
+                }
 
                 http::redirect("books.php");
             } catch (PDOException $e) {
@@ -226,6 +260,76 @@ class books extends database
             $stmt = "UPDATE `books` SET `copies`='{$copies}' WHERE `id`={$id}";
             $query = parent::$con->prepare($stmt);
             $data = $query->execute();
+            return $data;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function borrow_books()
+    {
+        try {
+            $stmt = "
+            SELECT
+                br.`id`,
+                br.`book_id`,
+                b.`name`,
+                b.`copies`,
+                u.`first_name`,
+                u.`last_name`,
+                br.`returning_date`,
+                br.`is_returned`,
+                br.`created_at`,
+                br.`updated_at`
+            FROM
+                `borrow_books` AS br
+            INNER JOIN `users` AS u
+            ON
+                u.`id` = br.`student_id`
+            INNER JOIN `books` AS b
+            ON
+                b.`id` = br.`book_id`
+            ";
+            $query = parent::$con->prepare($stmt);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetchAll();
+            return $data;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function fined_students()
+    {
+        try {
+            $stmt = "
+            SELECT
+                br.`id`,
+                br.`book_id`,
+                b.`name`,
+                b.`copies`,
+                u.`first_name`,
+                u.`last_name`,
+                br.`returning_date`,
+                br.`returned_date`,
+                br.`is_returned`,
+                br.`created_at`,
+                br.`updated_at`
+            FROM
+                `borrow_books` AS br
+            INNER JOIN `users` AS u
+            ON  u.`id` = br.`student_id`
+            INNER JOIN `books` AS b
+            ON b.`id` = br.`book_id`
+            INNER JOIN `borrow_books` AS f
+            ON f.`id` = br.`id`
+            WHERE br.`returned_date` != f.`returning_date`
+            ";
+            $query = parent::$con->prepare($stmt);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetchAll();
             return $data;
         } catch (PDOException $e) {
             echo $e->getMessage();
