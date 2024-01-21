@@ -18,7 +18,7 @@
 <body class="bg-light h-100 d-flex flex-column">
     <?php utils::component("navbar"); ?>
     <main class="container h-100">
-    <nav class="m-0">
+        <nav class="m-0">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="home.php" class=" text-dark text-decoration-none">Home</a></li>
                 <li class="breadcrumb-item active">Users</li>
