@@ -16,7 +16,8 @@ class http
         }
     }
 
-    public static function files($value){
+    public static function files($value)
+    {
         if (isset($_FILES[$value])) {
             return $_FILES[$value];
         }
@@ -53,11 +54,12 @@ class http
         echo "<script>location.href = '{$value}';</script>";
     }
 
-    public static function reload($time =""){
-		if (empty($time)) {
-			echo "<script>location.reload();</script>";
-		} else if(!empty($time)) {
-		  echo "<script>setTimeout(function() { location.reload();}, {$time});</script>";
-		}
-	}
+    public static function reload($time = "")
+    {
+        if (empty($time)) {
+            echo "<script>location.reload();</script>";
+        } else if (!empty($time)) {
+            echo "<script>setTimeout(function() { location.reload();}, {$time});</script>";
+        }
+    }
 }

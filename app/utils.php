@@ -9,7 +9,7 @@ class utils
             echo ($value) ? "<option value='1' selected>Active</option><option value='0'>Inactive</option>" : "<option value='1'>Active</option><option value='0' selected>Inactive</option>";
         }
     }
-    
+
     public static function is_status($value = null)
     {
         echo ($value) ? "Yes" : "No";
@@ -17,7 +17,7 @@ class utils
 
     public static function is_role($type = "badge", $value = null)
     {
-        $roles = ["0" => "Admin", "1" => "Faculty", "Student"];
+        $roles = ["0" => "Admin", "1" => "Faculty", "2" => "Student"];
         if ($type == "badge") {
             foreach ($roles as $key => $item) {
                 echo ($key == $value) ? $item : "";

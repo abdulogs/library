@@ -37,20 +37,20 @@
                 <?php if (auth::is_admin() | auth::is_faculty()) : ?>
                     <form class="d-flex" action="books.php" role="search">
                     <?php else : ?>
-                    <form class="d-flex" action="library.php" role="search">
-                    <?php endif; ?>
+                        <form class="d-flex" action="library.php" role="search">
+                        <?php endif; ?>
 
-                    <input class="form-control me-2" type="search" placeholder="Search" name="search" value="<?= http::input('search'); ?>" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                    <div class="dropdown ms-3">
-                        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
-                            <?= $GLOBALS["user"]["first_name"]; ?> <?= $GLOBALS["user"]["last_name"]; ?>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                        </ul>
-                    </div>
+                        <input class="form-control me-2" type="search" placeholder="Search" name="search" value="<?= http::input('search'); ?>" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                        <div class="dropdown ms-3">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
+                                <?= $GLOBALS["user"]["first_name"]; ?> <?= $GLOBALS["user"]["last_name"]; ?>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                            </ul>
+                        </div>
             </div>
         <?php else : ?>
             <div>

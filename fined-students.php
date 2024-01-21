@@ -56,8 +56,8 @@
                                         <td><?= date("F d, Y", strtotime($item["returning_date"])); ?></td>
                                         <td><?= date("F d, Y", strtotime($item["returned_date"])); ?></td>
                                         <td><?= utils::is_status($item["is_returned"]); ?></td>
-                                        <td><?= date("F d, Y h:i A", strtotime($item["created_at"])); ?></td>
-                                        <td><?= date("F d, Y h:i A", strtotime($item["updated_at"])); ?></td>
+                                        <td><?= date("F d, Y", strtotime($item["created_at"])); ?></td>
+                                        <td><?= date("F d, Y", strtotime($item["updated_at"])); ?></td>
                                         <td>
                                             <?php if (auth::is_admin() | auth::is_faculty()) : ?>
                                                 <a href="book-details.php?id=<?= $item["book_id"]; ?>" class="btn btn-sm btn-light">Details</a>

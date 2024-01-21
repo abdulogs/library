@@ -58,8 +58,8 @@
                                         <td><?= $item["phone"]; ?></td>
                                         <td><?= utils::is_role("badge", $item["is_role"]); ?></td>
                                         <td><?= utils::is_active("badge", $item["is_active"]); ?></td>
-                                        <td><?= date("F d, Y h:i A", strtotime($item["created_at"])); ?></td>
-                                        <td><?= date("F d, Y h:i A", strtotime($item["updated_at"])); ?></td>
+                                        <td><?= date("F d, Y", strtotime($item["created_at"])); ?></td>
+                                        <td><?= date("F d, Y", strtotime($item["updated_at"])); ?></td>
                                         <td>
                                             <a href="user-details.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-light">Details</a>
                                             <a href="user-update.php?id=<?= $item["id"]; ?>" class="btn btn-sm btn-success">Edit</a>
